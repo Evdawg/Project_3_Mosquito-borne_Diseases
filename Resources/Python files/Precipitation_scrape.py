@@ -11,7 +11,7 @@ from time import sleep
 exceptions = []
 
 #set up dataframe to contain scraped data
-county_temperature_df = pd.DataFrame()
+county_precipitation_df = pd.DataFrame()
 
 #set first and final year to scrape data for
 init_year = 2001
@@ -20,7 +20,7 @@ final_year = 2021
 #initialize loop to scrape webpages for desired years
 for i in range(init_year, final_year + 1): 
     try:
-        print(f'Getting Temperature data table for the year: {i}.')
+        print(f'Getting Precipitation data table for the year: {i}.')
 
         ### OJO: method one was to use BeautifulSoup, but this seemed to fail because the webpage loaded HTML too slowly
         ### however, this might work on a faster connection/computer
@@ -31,9 +31,9 @@ for i in range(init_year, final_year + 1):
         #use Browser from splinter to automate opening the webpage: 
         from splinter import Browser
         
-        #set the url using this iteration (i) for the year, data will be scraped for average temperature
+        #set the url using this iteration (i) for the year, data will be scraped for average [or total?] precipitation
         #across a 3 month window ending in September (i.e. July, August, September)
-        url = f"https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/tavg/{i}09/3/value"
+        url = f"https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/{i}09/3/value"
        
         #open browser and save as an object for python to manipulate, first by directing it to the webpage
         browser = Browser('chrome')
@@ -54,8 +54,8 @@ for i in range(init_year, final_year + 1):
         df['Year'] = i
 
         #Now concatenate this iteration's dfs[0] with the county temperature dataframe that will contain all years temp
-        county_temperature_df = pd.concat([county_temperature_df, df], ignore_index=True, axis=0)
-        print(f'{i} DataFrame concatenated to the County Temperature Dataframe.')
+        county_precipitation_df = pd.concat([county_precipitation_df, df], ignore_index=True, axis=0)
+        print(f'{i} DataFrame concatenated to the County Precipitation Dataframe.')
 
     except ValueError:  # the except statement sends value errors to a list that can be exported after the loop is finished.
         exceptions.append(url)
@@ -70,17 +70,17 @@ print(exceptions)
 #Clean up data column names and format of data
 column_names = {
     "County" : "County_ST",
-    "Value" : "Avg Temperature (F)",
+    "Value" : "Precipitation (in)",
 }
-county_temperature_df.rename(columns=column_names, inplace=True)
-county_temperature_df[["County", "State Abbreviation"]] = county_temperature_df["County_ST"].str.split(", ", 1, expand=True)
-county_temperature_df["Avg Temperature (F)"] = county_temperature_df["Avg Temperature (F)"].str.replace("°F", "")
+county_precipitation_df.rename(columns=column_names, inplace=True)
+county_precipitation_df[["County", "State Abbreviation"]] = county_precipitation_df["County_ST"].str.split(", ", 1, expand=True)
+county_precipitation_df["Precipitation (in)"] = county_precipitation_df["Precipitation (in)"].str.replace("\"", "")
 
-#We only really need four of the columns
-county_temperature_df = county_temperature_df[["County", "State", "State Abbreviation", "Avg Temperature (F)", "Year"]]
+#We only really need five of the columns
+county_precipitation_df = county_precipitation_df[["County", "State", "State Abbreviation", "Precipitation (in)", "Year"]]
 
 #Write dataframe out to a csv file
-county_temperature_df.to_csv("../county_avg_temperature.csv")
+county_precipitation_df.to_csv("../county_avg_precipitation.csv")
 #-----------------------------------------------------------------------------------------------------------------------
 
 ### Send the completed positional DataFrames to SQL database using the defined function python_to_postgres
