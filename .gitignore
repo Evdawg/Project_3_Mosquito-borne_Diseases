@@ -352,6 +352,3 @@ fabric.properties
 
 # temp files:
 ~$*.pptx
-
-# the config file:
-config.ini
