@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
-import requests
 import pandas as pd
 #from python_to_postgres import python_df_to_postgres
 import os
 import config_file
-import psycopg2
+#import psycopg2
 from time import sleep
+from splinter import Browser
 
 # Send any loop iterations with error to an exceptions list:
 exceptions = []
@@ -29,7 +29,7 @@ for i in range(init_year, final_year + 1):
         #html_soup_object = BeautifulSoup(webpage, 'html.parser')
 
         #use Browser from splinter to automate opening the webpage: 
-        from splinter import Browser
+
         
         #set the url using this iteration (i) for the year, data will be scraped for average [or total?] precipitation
         #across a 3 month window ending in September (i.e. July, August, September)
@@ -80,7 +80,7 @@ county_precipitation_df["Precipitation (in)"] = county_precipitation_df["Precipi
 county_precipitation_df = county_precipitation_df[["County", "State", "State Abbreviation", "Precipitation (in)", "Year"]]
 
 #Write dataframe out to a csv file
-county_precipitation_df.to_csv("../county_avg_precipitation.csv")
+county_precipitation_df.to_csv("../Data/county_avg_precipitation.csv", index=False)
 #-----------------------------------------------------------------------------------------------------------------------
 
 ### Send the completed positional DataFrames to SQL database using the defined function python_to_postgres
