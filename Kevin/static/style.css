@@ -1,0 +1,36 @@
+ body {
+  padding: 5px;
+  margin: 10px;
+}
+
+ /* .well{
+  margin-left: 88%;
+} */
+
+/* .parent{
+  display: inline-flex;
+
+} */
+
+#map{
+  width: auto;
+  height: 250px;
+  margin-right:15%;
+  
+  
+}
+
+#map2{
+  width: auto;
+  height: 260px;
+  margin-right: 15%;
+  margin-left: auto;
+  margin-top: 10px;
+} 
+
+/* #map,
+body,
+html {
+  height: 100%;
+} */
+
