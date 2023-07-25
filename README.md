@@ -62,6 +62,8 @@ Evan S.
 ## Sources: in-progress July 18, 2023
 [1] edX Boot Camps LLC. Module 14 ...
 
-[2] (source 2)
+[2] Row objects to tuples for JSON serializing:
+	https://stackoverflow.com/questions/71724579/row-is-not-json-serializable-error-when-sending-result-set-to-a-flask-view
 
-[3] (source 3)
+[3] Config file setup and reference:
+	https://www.c-sharpcorner.com/article/configuration-files-in-python/#:~:text=Config%20files%20are%20used%20to,at%20some%20point%2C%20of%20time
