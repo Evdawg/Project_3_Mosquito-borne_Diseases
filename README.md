@@ -55,7 +55,7 @@ The data used in this project was generated from the sources listed below and is
 
 
 ## SQL Database Setup and Data Import instructions:
-
+`
 1) in pgAdmin, create new Database titled "Project_3"
 2) Right-click the Project_3 Database and select "Query Tool"
 3) Above the Query tool text input window, click "Open File"
@@ -70,7 +70,7 @@ The data used in this project was generated from the sources listed below and is
 	- hostname remains as 'localhost', port remains as '5432'
 	- Update your specific username (may be defaulted as 'postgres') and password for local postgres server.
 2) Run app.py and confirm API data outputs are correct.
-
+`
 
 
 ## Collaborators:
