@@ -21,6 +21,7 @@ CREATE TABLE "county_avg_precipitation" (
 );
 
 CREATE TABLE "WestNile-Case-Counts-by-County" (
+    "county" VARCHAR,
     "2001" VARCHAR,
     "2002" VARCHAR,
     "2003" VARCHAR,
@@ -40,11 +41,11 @@ CREATE TABLE "WestNile-Case-Counts-by-County" (
     "2017" VARCHAR,
     "2018" VARCHAR,
     "2019" VARCHAR,
-    "2020" VARCHAR,
-    "county" VARCHAR
+    "2020" VARCHAR
 );
 
 CREATE TABLE "LD-Case_Counts-by-County" (
+    "county" VARCHAR,
     "2001" VARCHAR,
     "2002" VARCHAR,
     "2003" VARCHAR,
@@ -64,7 +65,6 @@ CREATE TABLE "LD-Case_Counts-by-County" (
     "2017" VARCHAR,
     "2018" VARCHAR,
     "2019" VARCHAR,
-    "2020" VARCHAR,
-    "county" VARCHAR
+    "2020" VARCHAR
 );
 
