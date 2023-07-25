@@ -62,9 +62,11 @@ The data used in this project was generated from the sources listed below and is
 4) Open the Project_3_tables_schema.sql file here. Execute the query here to populate tables.
 5) Manually import the CSV files from the Data folder by right-clicking each table in pgAdmin and selecting "Import/Export Data..."
 6) Confirm all data imported by running SELECT * statements in pgAdmin query window.
+```
 
 
 ### Flask app for API setup instructions:
+```
 1) Modify example_config.ini to reference your postgres database information.
 	- database was named 'Project_3'
 	- hostname remains as 'localhost', port remains as '5432'
