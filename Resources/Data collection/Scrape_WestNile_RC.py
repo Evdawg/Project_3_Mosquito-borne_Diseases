@@ -153,7 +153,7 @@ import re
 
 
 # import/export DataFrame csv
-csvPath = 'Resources/Data/WestNile-Case-Counts-by-County-01-20.csv'
+csvPath = 'Resources/Data/RawData/WestNile-Case-Counts-by-County-01-20.csv'
 savePath = 'Resources/Data/Clean_WestNile-Case-Counts-by-County-01-20.csv'
 
 #URL of the counties list with FIPs codes and coordinates
@@ -182,6 +182,9 @@ dataDF = pd.read_csv(csvPath, header='infer')
 dataDF = dataDF.loc[dataDF['county'].str[0:2] != 'PR' ]
 dataDF = dataDF.loc[dataDF['county'].str[0:2] != 'AK' ]
 dataDF = dataDF.loc[dataDF['county'].str[0:2] != 'HI' ]
+dataDF = dataDF.loc[dataDF['county'].str[0:2] != 'Pr' ]
+dataDF = dataDF.loc[dataDF['county'].str[0:2] != 'Ak' ]
+dataDF = dataDF.loc[dataDF['county'].str[0:2] != 'Hi' ]
 
 #set up empty vectors for the information I want. 
 latVector = []
@@ -203,6 +206,8 @@ for i in arange(0,len(dataDF.index),1):
     county = county.replace(' County','')
     county = county.replace('St ','St. ')
     county = county.replace(' City','')
+    county = county.replace(' Borough','')
+
     
     #account for some specific discrepencies
     if state == 'DC':
@@ -218,7 +223,7 @@ for i in arange(0,len(dataDF.index),1):
 
     #check for a match between the county name in the data and in the FIPS data
     countyDFResult = WebDFs.loc[WebDFs['County [2]'].str.contains(county, case=False) 
-                                       & WebDFs['State'].str.contains(state)]
+                                       & WebDFs['State'].str.contains(state, case=False)]
     
     #use try to catch if no match was found
     try:
@@ -236,7 +241,7 @@ for i in arange(0,len(dataDF.index),1):
 
             countyDFResult = WebDFs.loc[WebDFs['County [2]'].astype(str).str
                                         .contains(county[len(county)-4:len(county)-1], case=False) 
-                                        & WebDFs['State'].str.contains(state)] 
+                                        & WebDFs['State'].str.contains(state, case=False)] 
             FIPScode = str(countyDFResult['FIPS'].iloc[0])
             if len(FIPScode) == 4:
                 FIPScode = '0' + FIPScode
@@ -261,6 +266,102 @@ for i in arange(0,len(dataDF.index),1):
             lon = countyDFResult['Longitude'].iloc[0]
             print(f'{countySearch} result: county {countyMatch}, FIPS {FIPScode}, Lat {lat}, Lon {lon}')
         ErrorDict = {countySearch : countyMatch}
+        ErrorList.append(ErrorDict)
+    lat = float(re.search('\d+.\d+',lat)[0])
+    lon = -float(re.search('\d+.\d+',lon)[0])
+    
+    latVector.append(lat)
+    lonVector.append(lon)
+    FIPScodeVector.append(FIPScode)
+
+dataDF['lat'] = latVector
+dataDF['lon'] = lonVector
+dataDF['FIPS'] = FIPScodeVector
+
+dataDF.to_csv(savePath)
+
+
+
+#%%           Lymes Disease Cleaning and Merging
+
+
+from bs4 import BeautifulSoup
+from splinter import Browser
+from time import sleep 
+from numpy import arange
+import pandas as pd
+import re
+
+
+# import/export DataFrame csv
+csvPath = 'Resources/Data/RawData/RAW_Ld-Case-Counts-by-County-01-20.csv'
+savePath = 'Resources/Data/Clean_Ld-Case-Counts-by-County-01-20.csv'
+
+#URL of the counties list with FIPs codes and coordinates
+url = 'https://en.wikipedia.org/wiki/User:Michael_J/County_table'
+
+#Using a splinter instance to grab the FIPs table above
+browser = Browser('chrome')
+browser.visit(url)
+
+#giving page time to load and then scraping the html
+sleep(2)
+html_scraped = browser.html
+browser.quit()
+
+#pd.read_html() parses for tables and returns a list of dataframes.
+WebDFs = pd.read_html(html_scraped)
+        
+#The webpage should only have one table, grabbing the first table. 
+WebDFs = WebDFs[0]
+
+
+WebDFs['FIPS'] = WebDFs['FIPS'].astype(str).str.zfill(5)
+
+
+#grab the data to be cleaned 
+dataDF = pd.read_csv(csvPath, header='infer')
+
+
+
+#reduce the dataset to continental US
+dataDF = dataDF.loc[dataDF['state'] != 'Alaska' ]
+dataDF = dataDF.loc[dataDF['state'] != 'Hawaii' ]
+
+#set up empty vectors for the information I want. 
+latVector = []
+lonVector = []
+FIPScodeVector = []
+#tracking errors/replacements by creating a list of dictionaries. 
+ErrorList = []
+ErrorDict = {}
+
+#loop over all dataframe rows
+for i in arange(0,len(dataDF.index),1):
+    countySearch = dataDF['county'].iloc[i]
+    stateCode = str(dataDF['stcode'].iloc[i])
+    
+    if len(stateCode) == 1:
+        stateCode = '0'+stateCode
+        
+    countyCode = str(dataDF['ctycode'].iloc[i])
+    while len(countyCode) !=3:
+        countyCode = '0'+countyCode
+
+    FIPScode = stateCode+countyCode
+    
+    #check for a match between the county name in the data and in the FIPS data
+    countyDFResult = WebDFs.loc[WebDFs['FIPS'].str.contains(FIPScode, case=False)]
+    
+    #use try to catch if no match was found
+    try:
+        #grab the values from the FIPS data
+        lat = countyDFResult['Latitude'].iloc[0]
+        lon = countyDFResult['Longitude'].iloc[0]
+    #if the match dataframe is empty, do the same, but matching only a partial match 
+    except: 
+        print(f'no matching county for {countySearch}, FIPS code {FIPScode}\n')
+        ErrorDict = {countySearch : FIPScode}
         ErrorList.append(ErrorDict)
     lat = float(re.search('\d+.\d+',lat)[0])
     lon = -float(re.search('\d+.\d+',lon)[0])
