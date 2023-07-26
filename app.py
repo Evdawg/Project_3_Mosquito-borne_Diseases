@@ -79,6 +79,9 @@ def temps():
 
     # Query the session for full temperature table data:
     results = session.query(temp_table).all()
+    print(type(results))
+    for u in session.query(temp_table).all():
+        print(__dict__)
     result_tups = [tuple(row) for row in results]
     json_string = json.dumps(result_tups)
     session.close()
