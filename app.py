@@ -1,12 +1,22 @@
 # ### schema to connect to postgres is: "postgresql+psycopg2://username:password@host:port/database"
+# todo: Output data as JSON with key-value pairs. See: https://www.geeksforgeeks.org/sqlalchemy-mapping-table-columns/
+    # for automatically asigning keys based on column names.
+
 
 from flask import Flask, jsonify
 from sqlalchemy import URL, inspect, create_engine, MetaData, Table
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-import json
+from sqlalchemy.orm import Session, sessionmaker
+import json, sqlalchemy
+from sqlalchemy.ext.declarative import declarative_base
 
 import config_file
+
+# function source: https://www.geeksforgeeks.org/python-convert-a-list-to-dictionary/
+def Convert(lst):
+    res_dct = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
+    return res_dct
+
 
 # Reference config file for your postgres database settings.
 # modify the 'example_config.ini' file and rename as 'config.ini'
@@ -33,6 +43,8 @@ metadata.reflect(engine, only=['county_avg_temperature', 'county_avg_precipitati
 # reflect the existing database into a new model
 Base = automap_base(metadata=metadata)
 
+
+
 # reflect the tables
 Base.prepare(autoload_with=engine, reflect=True)
 
@@ -43,6 +55,10 @@ temp_table = metadata.tables['county_avg_temperature']
 precip_table = metadata.tables['county_avg_precipitation']
 westnile_table = metadata.tables['WestNile-Case-Counts-by-County']
 lymes_table = metadata.tables['LD-Case_Counts-by-County']
+
+print(type((temp_table)))
+
+
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
@@ -79,15 +95,17 @@ def temps():
 
     # Query the session for full temperature table data:
     results = session.query(temp_table).all()
-    print(type(results))
-    for u in session.query(temp_table).all():
-        print(__dict__)
-    result_tups = [tuple(row) for row in results]
-    json_string = json.dumps(result_tups)
+    # print(type(results))
+
+    temps_list = []
+    for row in results:
+        temps_list.append(row._asdict())
+        #print(row._asdict())
+    # print(temps_list)
     session.close()
 
-    print(type(result_tups))
-    return json_string
+    dictionary = {i: d for i, d in enumerate(temps_list)}
+    return dictionary  
 
 
 
@@ -98,12 +116,16 @@ def precips():
 
     # Query the session for full temperature table data:
     results = session.query(precip_table).all()
-    result_tups = [tuple(row) for row in results]
-    json_string = json.dumps(result_tups)
-    session.close()
 
-    print(type(result_tups))
-    return json_string
+    precip_list = []
+    for row in results:
+        precip_list.append(row._asdict())
+
+    session.close()
+    dictionary = {i: d for i, d in enumerate(precip_list)}
+    return dictionary
+
+
 
 @app.route("/api/WestNile-Case-Counts-by-County")
 def westnile():
@@ -112,12 +134,15 @@ def westnile():
 
     # Query the session for full temperature table data:
     results = session.query(westnile_table).all()
-    result_tups = [tuple(row) for row in results]
-    json_string = json.dumps(result_tups)
-    session.close()
 
-    print(type(result_tups))
-    return json_string
+    westnile_list = []
+    for row in results:
+        westnile_list.append(row._asdict())
+
+    session.close()
+    dictionary = {i: d for i, d in enumerate(westnile_list)}
+    return dictionary
+
 
 
 @app.route("/api/LD-Case_Counts-by-County")
@@ -127,12 +152,14 @@ def lymes():
 
     # Query the session for full temperature table data:
     results = session.query(lymes_table).all()
-    result_tups = [tuple(row) for row in results]
-    json_string = json.dumps(result_tups)
+
+    lymes_list = []
+    for row in results:
+        lymes_list.append(row._asdict())
     session.close()
 
-    print(type(result_tups))
-    return json_string
+    dictionary = {i: d for i, d in enumerate(lymes_list)}
+    return dictionary
 
 # --------------------------------------------------------------------------
 

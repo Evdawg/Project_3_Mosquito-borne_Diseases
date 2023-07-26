@@ -110,3 +110,9 @@ Evan S.
 
 [3] Config file setup and reference:
 	https://www.c-sharpcorner.com/article/configuration-files-in-python/#:~:text=Config%20files%20are%20used%20to,at%20some%20point%2C%20of%20time
+
+[4] Converting a sqlalchemy query result to dictionary:
+	https://riptutorial.com/sqlalchemy/example/6614/converting-a-query-result-to-dict
+
+[5] Convert list of dictionaries to dictionary of dictionaries:
+	https://stackoverflow.com/questions/33083300/how-convert-list-of-dictionaries-to-a-dictionary-of-dictionaries-in-python (jonrsharpe Oct 12, 2015 at 14:19)
