@@ -38,62 +38,68 @@ function diseaseDropDown() {
   
 function YearDropdown() {
   let Year = d3.select("#Year");
-  let startYear = 2002;
-  let endYear = 2022;
-  let yearArray = []
+    
   for(i= startYear; i < endYear+1; i++) {
     Year
     .append("option")
           .attr("value", i)
           .text(i.toString()); 
   }
-  console.log(yearArray);
-  
+  HeatMap(startYear);
+
 }
+
+function getYear () {
+  let selectYr = d3.select("#Year");  
+  selectYr
+      .on("change", function() {
+          let id = d3.event.target.value;
+          //remove(heat);
+          if(heat) {
+            myMap.removeLayer(heat);
+          }
+          HeatMap(id);
+      }   
+    )
+};
    
   
-  // add options to dropdown
-//   disArray.forEach(
-//       function(addID) {
-//           disease
-//           .append("option")
-//           .attr("value", addID)
-//           .text(addID);
-//       })
-// }
+// Main Body
+let startYear = 2002;
+let endYear = 2022;
+var heat;
 
 diseaseDropDown();
 YearDropdown();
+getYear();
 
 
 
-//location = "static/LD-Case-Counts-by-County-01-20.csv";
 
+function HeatMap (year) {
+    
+    console.log(year);
+    let heatArray = [];
+    let len = lymeData.length
 
-//   d3.csv(location).then(function(response) {
+      for (let i = 0; i < len; i++) {
+        let county = lymeData[i];
+        heatArray.push([county.Lat, county.Lon, county[year]]);
+        }
+    console.log(heatArray);
+    
+    heat = L.heatLayer(heatArray, {
+      radius: 10,
+      blur: 7,
+      max: 50, 
+      minOpacity: .5,
+    });
 
-//     console.log(response);
-//     //features = response.features;
-//  });
-  // let heatArray = [];
-// let array1 = [[-31.898217252, 115.78228321, 50],
-//     [-31.898217252, 115.7822, 50], [-31.898217252, 119.1, 5]];
+    heat.addTo(myMap);
+  }
 
-  // for (let i = 0; i < features.length; i++) {
-  //   let location = features[i].geometry;
-  //   if (location) {
-  //    //console.log(location);
-  //     heatArray.push([location.coordinates[1], location.coordinates[0]]);
-  //   }
-
-  //  }
-  //  console.log(array1[2]);
-  //  //console.log(heatArray);
-  //  let heat = L.heatLayer(array1, {
-  //    radius: 30,
-  //    blur: 10,
-  //    max: 1, 
-  //    minOpacity: .5,
-  //   }).addTo(myMap);
-
-// });
+function remove () {
+map.eachLayer(function (layer) {
+    map.removeLayer(layer);
+    })
+};
