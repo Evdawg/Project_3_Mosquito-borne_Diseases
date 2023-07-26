@@ -512,3 +512,143 @@ dataDF['lon'] = lonVector
 dataDF['FIPS'] = FIPScodeVector
 
 dataDF.to_csv(savePath)
+
+
+
+
+
+#%%    Precip data cleaning and merging
+
+
+from bs4 import BeautifulSoup
+from splinter import Browser
+from time import sleep 
+from numpy import arange
+import pandas as pd
+import re
+
+
+# import/export DataFrame csv
+csvPath = 'Resources/Data/county_avg_temperature.csv'
+savePath = 'Resources/Data/Clean_county_avg_temperature.csv'
+
+#URL of the counties list with FIPs codes and coordinates
+url = 'https://en.wikipedia.org/wiki/User:Michael_J/County_table'
+
+#Using a splinter instance to grab the FIPs table above
+browser = Browser('chrome')
+browser.visit(url)
+
+#giving page time to load and then scraping the html
+sleep(2)
+html_scraped = browser.html
+browser.quit()
+
+#pd.read_html() parses for tables and returns a list of dataframes.
+WebDFs = pd.read_html(html_scraped)
+        
+#The webpage should only have one table, grabbing the first table. 
+WebDFs = WebDFs[0]
+WebDFs['FIPS'] = WebDFs['FIPS'].astype(str).str.zfill(5)
+
+
+#grab the data to be cleaned 
+dataDF = pd.read_csv(csvPath, header='infer')
+#dataDF = dataDF.groupby(['Year','County','State Abbreviation']).sum().unstack(level=0)
+#dataDF.to_csv('Resources/Data/unstack_county_avg_precipitation.csv')
+#dataDF = pd.read_csv('Resources/Data/unstack_county_avg_precipitation.csv', header='infer')
+
+#reduce the dataset to continental US
+dataDF = dataDF.loc[dataDF['state'] != 'PR' ]
+dataDF = dataDF.loc[dataDF['state'] != 'AK' ]
+dataDF = dataDF.loc[dataDF['state'] != 'HI' ]
+
+
+#set up empty vectors for the information I want. 
+latVector = []
+lonVector = []
+FIPScodeVector = []
+#tracking errors/replacements by creating a list of dictionaries. 
+ErrorList = []
+ErrorDict = {}
+
+#loop over all dataframe rows
+for i in arange(0,len(dataDF.index),1):
+    #grab the county/state and seperate out the county and state
+    countySearch = dataDF['county'].iloc[i]
+    county = countySearch
+    state = dataDF['state'].iloc[i]
+    
+    #account for some common discrepencies between the source data and the FIPS data
+    county = county.replace(' Parish','')
+    county = county.replace(' County','')
+    county = county.replace('St ','St. ')
+    county = county.replace(' City','')
+    county = county.replace(' Borough','')
+
+    
+    #account for some specific discrepencies
+    if state == 'DC':
+        county = 'District of Columbia'
+    if county == 'Baltimore City':
+        county = 'Baltimore'
+    if county == 'St. Louis City':
+        county = 'St. Louis'            
+    if county == 'O Brien':
+        county = 'Brien'  
+    if county == 'Colonial Heights Cit':
+        county = 'Colonial Heights'
+    #check for a match between the county name in the data and in the FIPS data
+    countyDFResult = WebDFs.loc[WebDFs['County [2]'].str.contains(county, case=False) 
+                                       & WebDFs['State'].str.contains(state, case=False)]
+    
+    #use try to catch if no match was found
+    try:
+        #grab the values from the FIPS data
+        FIPScode = str(countyDFResult['FIPS'].iloc[0])
+        lat = countyDFResult['Latitude'].iloc[0]
+        lon = countyDFResult['Longitude'].iloc[0]
+    #if the match dataframe is empty, do the same, but matching only a partial match 
+    except: 
+        print(f'no matching county for {county}, {state}... trying based on last 4 characters...\n')
+        
+        try:
+
+            countyDFResult = WebDFs.loc[WebDFs['County [2]'].astype(str).str
+                                        .contains(county[len(county)-4:len(county)], case=False) 
+                                        & WebDFs['State'].str.contains(state, case=False)] 
+            FIPScode = str(countyDFResult['FIPS'].iloc[0])
+            countyMatch = countyDFResult['County [2]'].iloc[0]
+            lat = countyDFResult['Latitude'].iloc[0]
+            lon = countyDFResult['Longitude'].iloc[0]
+            print(f'{countySearch} result: county {countyMatch}, FIPS {FIPScode}, Lat {lat}, Lon {lon}')
+            
+        except:
+            print(f'no matching county for {county}, {state}\n')
+            print(f'using {url}')
+            dataindex = input('enter the index of the data manually:   ')
+        
+            countyDFResult = WebDFs.loc[WebDFs['Sort [1]'].astype(str).str.fullmatch(dataindex) ]
+        
+            FIPScode = str(countyDFResult['FIPS'].iloc[0])
+            if len(FIPScode) == 4:
+                FIPScode = '0' + FIPScode
+                
+            countyMatch = countyDFResult['County [2]'].iloc[0]
+            lat = countyDFResult['Latitude'].iloc[0]
+            lon = countyDFResult['Longitude'].iloc[0]
+            print(f'{countySearch} result: county {countyMatch}, FIPS {FIPScode}, Lat {lat}, Lon {lon}')
+        ErrorDict = {countySearch : countyMatch}
+        ErrorList.append(ErrorDict)
+    lat = float(re.search('\d+.\d+',lat)[0])
+    lon = -float(re.search('\d+.\d+',lon)[0])
+    
+    latVector.append(lat)
+    lonVector.append(lon)
+    FIPScodeVector.append(FIPScode)
+
+dataDF['lat'] = latVector
+dataDF['lon'] = lonVector
+dataDF['FIPS'] = FIPScodeVector
+
+dataDF.to_csv(savePath)
