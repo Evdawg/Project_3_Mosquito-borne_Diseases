@@ -186,82 +186,12 @@ function TempColor(mag) {
   } else if (mag >= 70 && mag <73){
     color = "#EB984E"; //"#D6EAF8"
   } else if (mag >= 67 && mag <70){
-    color = "#85C1E9"
+    color = "#85C1E9";
   } else {
-    color = "#3498DB"
+    color = "#3498DB";
   };
   
   return color;
 };
 
 
-// function HeatMap (year) {
-    
-//     console.log(year);
-//     let heatArray = [];
-//     let len = lymeData.length
-
-//       for (let i = 0; i < len; i++) {
-//         let county = lymeData[i];
-//         heatArray.push([county.Lat, county.Lon, county[year]]);
-//         }
-//     console.log(heatArray);
-    
-//     heat = L.heatLayer(heatArray, {
-//       radius: 10,
-//       blur: 7,
-//       max: 50, 
-//       minOpacity: .5,
-//     });
-
-//     heat.addTo(myMap);
-//   }
-
-// function remove () {
-// map.eachLayer(function (layer) {
-//     map.removeLayer(layer);
-//     })
-// };
-
-// var testData = {
-//   max: 8,
-//   data: [{lat: 24.6408, lng:46.7728, count: 3},{lat: 50.75, lng:-1.55, count: 1}]
-// };
-
-// var baseLayer = L.tileLayer(
-//   'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-//     attribution: '...',
-//     maxZoom: 18
-//   }
-// );
-
-// var cfg = {
-//   // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-//   // if scaleRadius is false it will be the constant radius used in pixels
-//   "radius": 2,
-//   "maxOpacity": .8,
-//   // scales the radius based on map zoom
-//   "scaleRadius": true,
-//   // if set to false the heatmap uses the global maximum for colorization
-//   // if activated: uses the data maximum within the current map boundaries
-//   //   (there will always be a red spot with useLocalExtremas true)
-//   "useLocalExtrema": true,
-//   // which field name in your data represents the latitude - default "lat"
-//   latField: 'lat',
-//   // which field name in your data represents the longitude - default "lng"
-//   lngField: 'lng',
-//   // which field name in your data represents the data value - default "value"
-//   valueField: 'count'
-// };
-
-// console.log(cfg);
-// var heatmapLayer = new HeatmapOverlay(cfg);
-
-// // var map = new L.Map('map-canvas', {
-// //   center: new L.LatLng(25.6586, -80.3568),
-// //   zoom: 4,
-// //   layers: [baseLayer, heatmapLayer]
-// // });
-
-// heatmapLayer.setData(testData);
-// heatmapLayer.addTo(myMap);
