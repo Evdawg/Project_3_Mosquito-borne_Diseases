@@ -127,3 +127,7 @@ Evan S.
 
 [5] Convert list of dictionaries to dictionary of dictionaries:
 	https://stackoverflow.com/questions/33083300/how-convert-list-of-dictionaries-to-a-dictionary-of-dictionaries-in-python (jonrsharpe Oct 12, 2015 at 14:19)
+
+
+[6] Presentation images, tick and mosquito:
+	https://mmcd.org/
