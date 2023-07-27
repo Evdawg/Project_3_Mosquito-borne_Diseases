@@ -44,10 +44,25 @@ function YearDropdown() {
           .text(i.toString()); 
   }
  // HeatMap(startYear);
-
 }
 
-function getYear () {
+function getDisease() {
+  let selectDis = d3.select("#disease");  
+  selectDis
+      .on("change", function() {
+          let dis = d3.event.target.value;
+          if (dis == "Lyme") {
+            disData = lymeData
+          } else {
+            disData = wnData
+          };
+          console.log(dis, disData)
+          getYear(disData);
+      }
+    )    
+}
+
+function getYear (data) {
   let selectYr = d3.select("#Year");  
   selectYr
       .on("change", function() {
@@ -60,7 +75,7 @@ function getYear () {
             myMap2.removeLayer(countyTempLayer);
           }
           console.log(year);
-          CreateDisLayer(lymeData, year);
+          CreateDisLayer(data, year);
           CreateTempLayer(tempData, year);
       }   
     )
@@ -74,13 +89,15 @@ let endYear = 2020;
 var countyLayer;
 var countyTempLayer;
 var heat;
-disData = lymeData;
+let disData; // = lymeData;
 
 diseaseDropDown();
 YearDropdown();
-CreateDisLayer(disData, startYear);
+CreateDisLayer(wnData, startYear);
 CreateTempLayer(tempData, startYear);
+getDisease();
 getYear();
+
 
 
 
@@ -167,7 +184,7 @@ function TempColor(mag) {
   } else if (mag >= 73 && mag <76) {
     color = "#D98880";
   } else if (mag >= 70 && mag <73){
-    color = "#D6EAF8"
+    color = "#EB984E"; //"#D6EAF8"
   } else if (mag >= 67 && mag <70){
     color = "#85C1E9"
   } else {
