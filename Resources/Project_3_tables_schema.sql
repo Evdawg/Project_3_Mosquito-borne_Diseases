@@ -1,26 +1,62 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
-
--- ---------------------------------------------------------------------
--- Project 3 tables
-
 CREATE TABLE "county_avg_temperature" (
-    "County" VARCHAR   NOT NULL,
-    "State" VARCHAR   NOT NULL,
-    "State Abbr" VARCHAR   NOT NULL,
-    "Avg Temperature (F)" FLOAT   NOT NULL,
-    "Year" VARCHAR   NOT NULL
+    "county" VARCHAR,
+	"state" VARCHAR,
+    "2001" FLOAT,
+    "2002" FLOAT,
+    "2003" FLOAT,
+    "2004" FLOAT,
+    "2005" FLOAT,
+    "2006" FLOAT,
+    "2007" FLOAT,
+    "2008" FLOAT,
+    "2009" FLOAT,
+    "2010" FLOAT,
+    "2011" FLOAT,
+    "2012" FLOAT,
+    "2013" FLOAT,
+    "2014" FLOAT,
+    "2015" FLOAT,
+    "2016" FLOAT,
+    "2017" FLOAT,
+    "2018" FLOAT,
+    "2019" FLOAT,
+    "2020" FLOAT,
+	"2021" FLOAT,
+	"lat" FLOAT,
+	"lon" FLOAT,
+	"FIPS" VARCHAR
 );
 
 CREATE TABLE "county_avg_precipitation" (
-    "County" VARCHAR  NOT NULL,
-    "State" VARCHAR   NOT NULL,
-    "State Abbreviation" VARCHAR   NOT NULL,
-    "Precipitation (in)" FLOAT   NOT NULL,
-    "Year" VARCHAR   NOT NULL
+  	"county" VARCHAR,
+	"state" VARCHAR,
+    "2001" FLOAT,
+    "2002" FLOAT,
+    "2003" FLOAT,
+    "2004" FLOAT,
+    "2005" FLOAT,
+    "2006" FLOAT,
+    "2007" FLOAT,
+    "2008" FLOAT,
+    "2009" FLOAT,
+    "2010" FLOAT,
+    "2011" FLOAT,
+    "2012" FLOAT,
+    "2013" FLOAT,
+    "2014" FLOAT,
+    "2015" FLOAT,
+    "2016" FLOAT,
+    "2017" FLOAT,
+    "2018" FLOAT,
+    "2019" FLOAT,
+    "2020" FLOAT,
+	"2021" FLOAT,
+	"lat" FLOAT,
+	"lon" FLOAT,
+	"FIPS" VARCHAR
 );
 
-CREATE TABLE "WestNile-Case-Counts-by-County" (
+CREATE TABLE "WestNile_Case_Counts_by_County" (
     "county" VARCHAR,
     "2001" VARCHAR,
     "2002" VARCHAR,
@@ -41,11 +77,17 @@ CREATE TABLE "WestNile-Case-Counts-by-County" (
     "2017" VARCHAR,
     "2018" VARCHAR,
     "2019" VARCHAR,
-    "2020" VARCHAR
+    "2020" VARCHAR,
+	"lat" FLOAT,
+	"lon" FLOAT,
+	"FIPS" VARCHAR
 );
 
-CREATE TABLE "LD-Case_Counts-by-County" (
+CREATE TABLE "LD_Case_Counts_by_County" (
     "county" VARCHAR,
+	"state" VARCHAR,
+	"stcode" VARCHAR,
+	"ctycode" VARCHAR,
     "2001" VARCHAR,
     "2002" VARCHAR,
     "2003" VARCHAR,
@@ -65,6 +107,8 @@ CREATE TABLE "LD-Case_Counts-by-County" (
     "2017" VARCHAR,
     "2018" VARCHAR,
     "2019" VARCHAR,
-    "2020" VARCHAR
+    "2020" VARCHAR,
+	"lat" FLOAT,
+	"lon" FLOAT,
+	"FIPS" VARCHAR
 );
-

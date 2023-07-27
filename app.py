@@ -27,8 +27,8 @@ insp = inspect(engine)
 print(insp.get_table_names())
 
 metadata = MetaData()
-metadata.reflect(engine, only=['county_avg_temperature', 'county_avg_precipitation', 'WestNile-Case-Counts-by-County', 'LD-Case_Counts-by-County'])
-# print(metadata)
+metadata.reflect(engine, only=['county_avg_temperature', 'county_avg_precipitation', 'WestNile_Case_Counts_by_County', 'LD_Case_Counts_by_County'])
+print(metadata)
 
 # reflect the existing database into a new model
 Base = automap_base(metadata=metadata)
@@ -40,8 +40,8 @@ Base.prepare(autoload_with=engine, reflect=True)
 # Assign postgres table objects to variables
 temp_table = metadata.tables['county_avg_temperature']
 precip_table = metadata.tables['county_avg_precipitation']
-westnile_table = metadata.tables['WestNile-Case-Counts-by-County']
-lymes_table = metadata.tables['LD-Case_Counts-by-County']
+westnile_table = metadata.tables['WestNile_Case_Counts_by_County']
+lymes_table = metadata.tables['LD_Case_Counts_by_County']
 
 
 # Create our session (link) from Python to the DB
@@ -58,8 +58,8 @@ def homepage():
         f"Available tables API routes:<br/>"
         f"/api/county_avg_temperature<br/>"
         f"/api/county_avg_precipitation<br/>"
-        f"/api/WestNile-Case-Counts-by-County<br/>"
-        f"/api/LD-Case_Counts-by-County<br/>"
+        f"/api/WestNile_Case_Counts_by_County<br/>"
+        f"/api/LD-Case_Counts_by_County<br/>"
     )
 
 # --------------------------------------------------------------------------
@@ -104,7 +104,7 @@ def precips():
 
 
 
-@app.route("/api/WestNile-Case-Counts-by-County")
+@app.route("/api/WestNile_Case_Counts_by_County")
 def westnile():
     # Create session (link) from Python to the DB
     session = Session(engine)
@@ -122,7 +122,7 @@ def westnile():
 
 
 
-@app.route("/api/LD-Case_Counts-by-County")
+@app.route("/api/LD-Case_Counts_by_County")
 def lymes():
     # Create session (link) from Python to the DB
     session = Session(engine)

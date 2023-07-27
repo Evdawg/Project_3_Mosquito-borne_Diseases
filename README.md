@@ -52,6 +52,14 @@ The data used in this project was generated from the sources listed below and is
 	Pareto bar chart, ...
 
 
+## Cleaning and Loading the Data:
+```
+1) In the Data collection folder, open and run "Temperature_scrape.py"
+2) Open and run "Precipitiation_scrape.py"
+3) Run "Scrape and clean_RC.py" last.
+4) Open "dropping_column_1.ipynb" in Jupyter Notebook. Run all cells to output the four CSV data files.
+
+```
 
 
 ## SQL Database Setup and Data Import instructions:
@@ -60,7 +68,7 @@ The data used in this project was generated from the sources listed below and is
 2) Right-click the Project_3 Database and select "Query Tool"
 3) Above the Query tool text input window, click "Open File"
 4) Open the Project_3_tables_schema.sql file here. Execute the query here to populate tables.
-5) Manually import the CSV files from the Data folder by right-clicking each table in pgAdmin and selecting "Import/Export Data..."
+5) Manually import the CSV files outputted from "dropping_column_1.ipynb" in the Data folder by right-clicking each table in pgAdmin and selecting "Import/Export Data..."
 6) Confirm all data imported by running SELECT * statements in pgAdmin query window.
 ```
 
@@ -71,7 +79,8 @@ The data used in this project was generated from the sources listed below and is
 	- database was named 'Project_3'
 	- hostname remains as 'localhost', port remains as '5432'
 	- Update your specific username (may be defaulted as 'postgres') and password for local postgres server.
-2) Run app.py and confirm API data outputs are correct.
+2) Rename the modified "example_config.ini" to "config.ini".
+3) Run app.py and confirm API data outputs are correct in browser window.
 ```
 
 
