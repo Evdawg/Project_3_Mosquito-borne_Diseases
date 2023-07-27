@@ -1,6 +1,6 @@
  body {
   padding: 5px;
-  margin: 10px;
+  margin: 0px;
 }
 
  /* .well{
@@ -14,18 +14,18 @@
 
 #map{
   width: auto;
-  height: 250px;
-  margin-right:5%;
+  height: 260px;
+  margin-right: 0%;
   
   
 }
 
 #map2{
   width: auto;
-  height: 260px;
-  margin-right: 5%;
+  height: 270px;
+  margin-right: 0%;
   margin-left: auto;
-  margin-top: 10px;
+  margin-top: 5px;
 } 
 
 /* #map,
