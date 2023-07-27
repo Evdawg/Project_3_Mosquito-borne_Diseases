@@ -1,21 +1,12 @@
 # ### schema to connect to postgres is: "postgresql+psycopg2://username:password@host:port/database"
-# todo: Output data as JSON with key-value pairs. See: https://www.geeksforgeeks.org/sqlalchemy-mapping-table-columns/
-    # for automatically asigning keys based on column names.
-
 
 from flask import Flask, jsonify
-from sqlalchemy import URL, inspect, create_engine, MetaData, Table
+from sqlalchemy import URL, inspect, create_engine, MetaData
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import Session
 import json, sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-
 import config_file
-
-# function source: https://www.geeksforgeeks.org/python-convert-a-list-to-dictionary/
-def Convert(lst):
-    res_dct = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
-    return res_dct
 
 
 # Reference config file for your postgres database settings.
@@ -30,7 +21,6 @@ url_object = URL.create(
     database= config['SQLdb']['database'],
 )
 
-
 engine = create_engine(url_object)
 
 insp = inspect(engine)
@@ -44,33 +34,21 @@ metadata.reflect(engine, only=['county_avg_temperature', 'county_avg_precipitati
 Base = automap_base(metadata=metadata)
 
 
-
 # reflect the tables
 Base.prepare(autoload_with=engine, reflect=True)
 
-# temperature_data = Table("county_avg_temperature", metadata, autoload_with=engine)
-# print(temperature_data.columns)
-
+# Assign postgres table objects to variables
 temp_table = metadata.tables['county_avg_temperature']
 precip_table = metadata.tables['county_avg_precipitation']
 westnile_table = metadata.tables['WestNile-Case-Counts-by-County']
 lymes_table = metadata.tables['LD-Case_Counts-by-County']
 
-print(type((temp_table)))
-
-
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
 
-
 app = Flask(__name__)
 # print(app)
-
-
-# Assign postgres tables to variables:
-
-
 
 
 @app.route('/')
@@ -84,9 +62,8 @@ def homepage():
         f"/api/LD-Case_Counts-by-County<br/>"
     )
 
-
 # --------------------------------------------------------------------------
-### Do table stuff here
+# API routes:
 
 @app.route("/api/county_avg_temperature")
 def temps():
