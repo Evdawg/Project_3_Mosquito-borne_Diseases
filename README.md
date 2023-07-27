@@ -1,11 +1,11 @@
-# Project_3_Mosquito-borne_Diseases
-Project 3: Mapping Mosquito-borne illnesses in Minnesota
+# Mapping Vector-borne Illnesses
+Project 3: Mapping West Nile Virus and Lyme Disease illnesses Against Regional Temperature and Precipitiation
 
 Graded __/100
 
 
 ## Project Description:
-This project is to analyze trends in vector-borne (tick and mosquito) illnesses in the United States. The rate of illnesses was visually compared to available county temperature and precipitation data.
+This project is to analyze trends in vector-borne (tick and mosquito) illnesses in the United States. The rate of illnesses was compared visually to available county temperature and precipitation data.
 
 
 The data used in this project was generated from the sources listed below and is intended for educational purposes only.
@@ -36,12 +36,12 @@ The data used in this project was generated from the sources listed below and is
 
 
 ### Transform:
-	String manipulation and list comprehension cleaning to read data into Pandas DataFrame objects.
+	Clean data using string manipulation and list comprehension. Read the data into Pandas DataFrame objects.
 	Merge and append operations to manipulate DataFrame objects.
 
 
 ### Load:
-	Load postgres database tables to Python Flask API.
+	Reflect postgres database tables to Python Flask API. Structure output API data in dictionary format.
 
 	Call Flask API data using JavaScript.
 
@@ -51,6 +51,8 @@ The data used in this project was generated from the sources listed below and is
 
 	Pareto bar chart, ...
 
+
+# Setup Instructions:
 
 ## Cleaning and Loading the Data:
 ```
