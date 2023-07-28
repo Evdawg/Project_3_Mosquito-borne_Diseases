@@ -1,6 +1,6 @@
 # ### schema to connect to postgres is: "postgresql+psycopg2://username:password@host:port/database"
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 from sqlalchemy import URL, inspect, create_engine, MetaData
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -50,6 +50,11 @@ session = Session(engine)
 app = Flask(__name__)
 # print(app)
 
+@app.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 
 @app.route('/')
 def homepage():
@@ -67,6 +72,7 @@ def homepage():
 
 @app.route("/api/county_avg_temperature")
 def temps():
+    
     # Create session (link) from Python to the DB
     session = Session(engine)
 
