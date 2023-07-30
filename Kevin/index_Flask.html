@@ -25,7 +25,10 @@
 
   <body>
     
-
+    <header class="banner">
+      <h1>Disease Hot-Spots and Their Relationship to Temperature</h1>
+    </header>
+    
     <div class="container">      
       <div class="row">
         <div class="col-md-1">
@@ -38,11 +41,23 @@
         </div>
         <div class="col-md-11">
           <div class="MapSheet">
+            <h4>Distribution of infections:</h4>
             <div id="map"></div>
-            
+            <h4>Temperature (3 month summer average):</h4>
             <div id="map2"></div>
           </div>
+
+          <div class="data-sources">
+            <h4>Data Sources:</h4> <!-- list data sources, links open in new tab -->>
+            <ul>
+              <li><a href="https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping" target="_blank">USA Counties Temperature and Precipitation</a></li>
+              <li><a href="https://www.cdc.gov/westnile/statsmaps/historic-data.html" target="_blank">West Nile case incidence data</a></li>
+              <li><a href="https://www.cdc.gov/lyme/datasurveillance/lyme-disease-maps.html#print" target="_blank">Lyme Disease case incidence data</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
+    </div>
 
 
 

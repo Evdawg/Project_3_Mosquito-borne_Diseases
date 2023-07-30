@@ -3,6 +3,27 @@
   margin: 0px;
 }
 
+.banner {
+  text-align: center; /* center the heading on the page */
+  padding: 20px; /* add some space around the banner */
+  background-color: #c2bdbd; /* add a background color */
+  margin-bottom: 30px; /* add a margin at the bottom to create space between banner and content */
+  font-weight: bold; /* make text bold */
+}
+
+.MapSheet {
+  border: 2px solid #000; /* add a solid black border around the MapSheet div */
+  padding: 20px; /* add some space between the border and the inner contents */
+}
+
+#map {
+  border: 10px solid #860606; /* add a solid maroon border around the map div */
+  margin-bottom: 10px; /* add a little spacer between the bottom of map and header for map2 */
+}
+
+#map2 {
+  border: 10px solid #860606;; /* add a solid maroon border around the map2 div */
+}
  /* .well{
   margin-left: 88%;
 } */
