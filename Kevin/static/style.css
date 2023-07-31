@@ -13,7 +13,7 @@ body {
 } */
 
 #map2{
-  width: auto;
+  /* width: auto; */
   height: 270px;
   margin-right: 0%;
   margin-left: auto;
@@ -21,7 +21,7 @@ body {
 } 
 
 #map{
-  width: auto;
+  /* width: auto; */
   height: 270px;
   margin-right: 0%;
   margin-left: auto;
@@ -31,9 +31,9 @@ body {
 
 
 #map3{
-  width: auto;
+  /* width: auto; */
   height: 270px;
-  margin-right: -2.3%;
+  margin-right: 0%;
   margin-left: auto;
   margin-top: 5px;
 }
