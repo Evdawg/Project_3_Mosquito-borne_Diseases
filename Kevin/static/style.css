@@ -16,14 +16,6 @@
   padding: 20px; /* add some space between the border and the inner contents */
 }
 
-#map {
-  border: 10px solid #860606; /* add a solid maroon border around the map div */
-  margin-bottom: 10px; /* add a little spacer between the bottom of map and header for map2 */
-}
-
-#map2 {
-  border: 10px solid #860606;; /* add a solid maroon border around the map2 div */
-}
  /* .well{
   margin-left: 88%;
 } */
@@ -33,21 +25,39 @@
 
 } */
 
-#map{
-  width: auto;
-  height: 450px;
-  margin-right: 0%;
-  
-  
-}
-
 #map2{
   width: auto;
-  height: 450px;
+  height: 270px;
   margin-right: 0%;
   margin-left: auto;
   margin-top: 5px;
+  border: 10px solid #860606; /* add a solid maroon border around the map2 div */
+  margin-bottom: 10px; /* add a little spacer between the bottom of map and header for map2 */
 } 
+
+#map{
+  width: auto;
+  height: 270px;
+  margin-right: 0%;
+  margin-left: auto;
+  margin-top: 5px;
+  border: 10px solid #860606; /* add a solid maroon border around the map div */
+  margin-bottom: 10px; /* add a little spacer between the bottom of map and header for map2 */
+}
+
+
+
+#map3{
+  width: auto;
+  height: 270px;
+  margin-right: -2.3%;
+  margin-left: auto;
+  margin-top: 5px;
+  border: 10px solid #860606; /* add a solid maroon border around the map div */
+
+}
+
+
 
 /* #map,
 body,
