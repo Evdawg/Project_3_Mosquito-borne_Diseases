@@ -93,17 +93,7 @@ d3.json("http://127.0.0.1:5000/api/county_avg_temperature").then(function(Tdatai
                       } else {
                         disData = wnData
                       };
-                      
-                      if(countyLayer) {
-                          myMap.removeLayer(countyLayer);
-                      }
-                      if(countyTempLayer) {
-                          myMap2.removeLayer(countyTempLayer);
-                      }
-                      console.log(dis, disData)
-
-                      CreateDisLayer(disData, year);
-                      CreateTempLayer(tempData, year);
+                      getYear(disData)
                   }
                 )    
             }
