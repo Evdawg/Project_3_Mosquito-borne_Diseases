@@ -102,7 +102,7 @@ let disData; // = lymeData;
 
 diseaseDropDown();
 YearDropdown();
-CreateDisLayer(wnData, startYear);
+CreateDisLayer(lymeData, startYear);
 CreateTempLayer(tempData, startYear);
 getDisease();
 getYear();

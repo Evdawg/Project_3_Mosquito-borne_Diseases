@@ -1,9 +1,6 @@
 from bs4 import BeautifulSoup
 import pandas as pd
-#from python_to_postgres import python_df_to_postgres
 import os
-import config_file
-#import psycopg2
 from time import sleep
 from splinter import Browser
 
@@ -34,8 +31,11 @@ for i in range(init_year, final_year + 1):
         #set the url using this iteration (i) for the year, data will be scraped for average [or total?] precipitation
         #across a 3 month window ending in September (i.e. July, August, September)
         url = f"https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/110/pcp/{i}09/3/value"
-       
+        #https://splinter.readthedocs.io/en/latest/drivers/chrome.html
+        #from selenium.webdriver.chrome.service import Service
+        #my_service = Service(executable_path ='C:\Windows\chromedriver.exe')
         #open browser and save as an object for python to manipulate, first by directing it to the webpage
+        #browser = Browser('chrome', service = my_service)
         browser = Browser('chrome')
         browser.visit(url)
         
@@ -80,10 +80,7 @@ county_precipitation_df["Precipitation (in)"] = county_precipitation_df["Precipi
 county_precipitation_df = county_precipitation_df[["County", "State", "State Abbreviation", "Precipitation (in)", "Year"]]
 
 #Write dataframe out to a csv file
-county_precipitation_df.to_csv("../Data/county_avg_precipitation.csv", index=False)
+county_precipitation_df.to_csv("../Data/RawData/county_avg_precipitation.csv", index=False)
 #-----------------------------------------------------------------------------------------------------------------------
 
-### Send the completed positional DataFrames to SQL database using the defined function python_to_postgres
-### We won't do this now, just write it to a CSV and we'll do the SQL add later -Evan
-#python_df_to_postgres(big_df, 'county_temperatures_df', 'replace')
 
