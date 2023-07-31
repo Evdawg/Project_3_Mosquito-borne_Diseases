@@ -8,11 +8,6 @@ let myMap2 = L.map("map2", {
   zoom: 3
 });
 
-let myMap3 = L.map("map3", {
-  center: [39.8, -98.5],
-  zoom: 3
-});
-
 
 // Adding the tile layer
 let first = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -23,10 +18,6 @@ first.addTo(myMap);
 let second = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap2);
-
-let third = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(myMap3);
 
 function diseaseDropDown() {
   let disease = d3.select("#disease");
