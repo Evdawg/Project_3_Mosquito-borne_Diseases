@@ -1,11 +1,11 @@
 let myMap = L.map("map", {
   center: [39.8, -98.5],
-  zoom: 4
+  zoom: 3
 });
 
 let myMap2 = L.map("map2", {
   center: [39.8, -98.5],
-  zoom: 4
+  zoom: 3
 });
 
 
