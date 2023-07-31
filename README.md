@@ -112,7 +112,7 @@ Evan S.
 
 
 
-## Methods sources: in-progress July 25, 2023
+## Methods and other sources:
 [1] Flask API setup, Leaftlet heatmapping, ...
 	edX Boot Camps LLC. Multiple lecture activities.
 
