@@ -1,4 +1,4 @@
- body {
+body {
   padding: 5px;
   margin: 0px;
 }
@@ -12,25 +12,36 @@
 
 } */
 
-#map{
-  width: auto;
-  height: 450px;
-  margin-right: 0%;
-  
-  
-}
-
 #map2{
   width: auto;
-  height: 450px;
+  height: 270px;
   margin-right: 0%;
   margin-left: auto;
   margin-top: 5px;
 } 
+
+#map{
+  width: auto;
+  height: 270px;
+  margin-right: 0%;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+
+
+#map3{
+  width: auto;
+  height: 270px;
+  margin-right: -2.3%;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+
 
 /* #map,
 body,
 html {
   height: 100%;
 } */
-
