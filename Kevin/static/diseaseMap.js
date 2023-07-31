@@ -1,3 +1,6 @@
+
+// Initialization information for base maps
+
 let myMap = L.map("map", {
   center: [39.8, -98.5],
   zoom: 3
@@ -28,11 +31,13 @@ let third = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap3);
 
+
+// create drop down for disease selection
 function diseaseDropDown() {
   let disease = d3.select("#disease");
   let disArray = [["Lyme"], ["West Nile"]];
    
-  console.log(disArray);
+  //console.log(disArray);
   // add options to dropdown
   disArray.forEach(
       function(addID) {
@@ -42,7 +47,8 @@ function diseaseDropDown() {
           .text(addID);
       })
     };
-  
+
+// creates dropdown for year selection
 function YearDropdown() {
   let Year = d3.select("#Year");
     
@@ -52,9 +58,10 @@ function YearDropdown() {
           .attr("value", i)
           .text(i.toString()); 
   }
- // HeatMap(startYear);
 }
 
+// reads disease drop down selection 
+// and passes to year selection function
 function getDisease() {
   let selectDis = d3.select("#disease");  
   selectDis
@@ -65,12 +72,15 @@ function getDisease() {
           } else {
             disData = wnData
           };
-          console.log(dis, disData)
+          //console.log(dis, disData)
           getYear(disData);
       }
     )    
 }
 
+// reads year selection 
+// removes current top layers if needed
+// and activates top layer creation
 function getYear (data) {
   let selectYr = d3.select("#Year");  
   selectYr
@@ -89,28 +99,8 @@ function getYear (data) {
       }   
     )
 };
-   
-  
-// Main Body
-let startYear = 2002;
-let endYear = 2020;
 
-var countyLayer;
-var countyTempLayer;
-var heat;
-let disData; // = lymeData;
-
-diseaseDropDown();
-YearDropdown();
-CreateDisLayer(wnData, startYear);
-CreateTempLayer(tempData, startYear);
-getDisease();
-getYear();
-
-
-
-
-
+// creates disease layer
 function CreateDisLayer(Data, year) {
   let len = Data.length
   let countyMarkers = [];
@@ -138,6 +128,7 @@ function CreateDisLayer(Data, year) {
     countyLayer.addTo(myMap);
 };
 
+// selects color, graduations, and radii for disease layer
 function Color(mag) {
   if (mag >= 50) {
     color = "darkred";
@@ -155,7 +146,7 @@ function Color(mag) {
   return [color, radius];
 };
 
-
+// creates temp layer
 function CreateTempLayer(Data, year) {
   let len = Data.length
   let countyTempMarkers = [];
@@ -183,6 +174,7 @@ function CreateTempLayer(Data, year) {
     countyTempLayer.addTo(myMap2);
 };
 
+// selects color and graduations for temp layer
 function TempColor(mag) {
   if (mag >= 82) {
     color = "#641E16";
@@ -202,3 +194,25 @@ function TempColor(mag) {
   
   return color;
 };
+   
+  
+// Main Body
+let startYear = 2002;
+let endYear = 2020;
+
+var countyLayer;
+var countyTempLayer;
+var heat;
+let disData; // = lymeData;
+
+diseaseDropDown();
+YearDropdown();
+CreateDisLayer(wnData, startYear);
+CreateTempLayer(tempData, startYear);
+getDisease();
+getYear();
+
+
+
+
+
