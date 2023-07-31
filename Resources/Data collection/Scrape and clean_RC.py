@@ -3,6 +3,14 @@
 Created on Tue Jul 18 20:35:03 2023
 
 @author: Ryan Cornelius
+
+This file includes:
+-the code used to scrape the data used for WestNyle cases
+-Geocoding code used to confirm / test county information. In the end this was replaced by an online dataset.
+-the code used to clean all WestNyle, Lymes, Precipitation, and Temperature data
+    -this code was approximately equivalent, but with small tweeks for each dataset.
+
+
 """
 #importing dependencies
 from bs4 import BeautifulSoup
@@ -10,6 +18,8 @@ from splinter import Browser
 from time import sleep 
 from numpy import arange
 import pandas as pd
+from config.ini import geoapifyApiKey  #only needed if using the geoapify block.
+
 
 #%%                            WestNyle Data Importing
 #setting up the desired years using numpy
@@ -86,16 +96,11 @@ DF = pd.read_csv(csvPath, header='infer')
 
 
 
-censusURL = 'https://api.census.gov/data/2010/dec/sf1?get=NAME&for=county:*&in=state:*'
 geoapifyBaseURL = 'https://api.geoapify.com/v1/geocode/search?text='
-geoapifyApiKey = '5f3e3b9c92f0408cae7e05687fdf496c'
-
-text = 'https://api.geoapify.com/v1/geocode/search?text=MN,Renville&bias=countrycode:us&format=json&apiKey=5f3e3b9c92f0408cae7e05687fdf496c'
 
 countyCodes = requests.get(censusURL).json()
 countyCodesDF = pd.DataFrame(countyCodes)
 countyCodesDF = countyCodesDF.rename(columns=countyCodesDF.iloc[0]).loc[1:]
-
 
 latVector = []
 lonVector = []
@@ -142,8 +147,6 @@ for i in arange(0,len(DF.index),1):
     
 
 #%%  Data cleaning and merging
-
-
 from bs4 import BeautifulSoup
 from splinter import Browser
 from time import sleep 
@@ -211,11 +214,7 @@ for i in arange(0,len(dataDF.index),1):
     
     #account for some specific discrepencies
     if state == 'DC':
-        county = 'District of Columbia'
-    if county == 'Baltimore City':
-        county = 'Baltimore'
-    if county == 'St. Louis City':
-        county = 'St. Louis'            
+        county = 'District of Columbia'       
     if county == 'O Brien':
         county = 'Brien' 
     if county == 'Colonial Heights Cit':
@@ -282,9 +281,7 @@ dataDF.to_csv(savePath)
 
 
 
-#%%           Lymes Disease Cleaning and Merging
-
-
+#%%           Lymes Disease Cleaning and Merging, equivalent
 from bs4 import BeautifulSoup
 from splinter import Browser
 from time import sleep 
@@ -449,11 +446,7 @@ for i in arange(0,len(dataDF.index),1):
     
     #account for some specific discrepencies
     if state == 'DC':
-        county = 'District of Columbia'
-    if county == 'Baltimore City':
-        county = 'Baltimore'
-    if county == 'St. Louis City':
-        county = 'St. Louis'            
+        county = 'District of Columbia'     
     if county == 'O Brien':
         county = 'Brien'  
     if county == 'Colonial Heights Cit':
@@ -518,8 +511,6 @@ dataDF.to_csv(savePath)
 
 
 #%%    Precip data cleaning and merging
-
-
 from bs4 import BeautifulSoup
 from splinter import Browser
 from time import sleep 
