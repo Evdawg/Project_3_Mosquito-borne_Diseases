@@ -135,20 +135,23 @@ function CreateDisLayer(Data, year) {
 
 // selects color, graduations, and radii for disease layer
 function Color(mag) {
-  if (mag >= 40) {
-      color = "#7B241";
+  if (mag >= 50) {
+      color = "#7B241C";
+      radius = 45000;
+  } else if (mag >= 40 && mag < 50) {
+      color = "#A93226 ";
       radius = 40000;
-  } else if (mag >= 20 && mag < 40) {
+  } else if (mag >= 30 && mag < 40) {
       color = "#D98880";
       radius = 35000;
-  } else if (mag >= 10 && mag <20) {
+  } else if (mag >= 20 && mag <30) {
       color = "#C0392B";
       radius = 30000;
   } else if (mag >= 10 && mag <20) {
       color = "#EB984E";
       radius = 25000;
   } else {
-      color = "gray"
+      color = "#85929E"
       radius = 20000;
   };
   return [color, radius];
@@ -232,12 +235,14 @@ function CreatePrecLayer(Data, year) {
   };
 
 
-// selects color and graduations for temp layer
+// selects color and graduations for prec layer
 function precColor(mag) {
-  if (mag >= 35) {
+  if (mag >= 30) {
     color = "#641E16";
-  } else if (mag >= 25 && mag < 30) {
+  } else if (mag >=25 && mag < 30) {
     color = "#7B241C";
+  } else if (mag >= 20 && mag < 25) {
+    color = "#A93226";
   } else if (mag >= 15 && mag <20) {
     color = "#C0392B";
   } else if (mag >= 10 && mag <15) {
@@ -251,6 +256,32 @@ function precColor(mag) {
   };
   
   return color;
+};
+
+
+  // Create a legend to display information about our map
+function diseaseLegend() {
+  var info = L.control({
+  position: "bottomright"
+});
+// When the layer control is added, insert a div with the class of "legend"
+  info.onAdd = function() {
+      var div = L.DomUtil.create("div", "legend");
+      div.innerHTML=[
+          "<h7>Cases:</h7></br>",
+          "<span class='l10'>>=50</span>",
+          "</br>",
+          "<span class='l30'>40-49</span></br>",
+          "<span class='l50'>30-39</span></br>",
+          "<span class='l70'>20-29</span></br>",
+          "<span class='l90'>10-19</span></br>",
+          "<span class='g90'>0-9</span>"
+      ].join("");
+
+    return div;
+};
+// Add the info legend to the map
+info.addTo(myMap);
 };
 
    
@@ -274,6 +305,7 @@ YearDropdown();
 CreateDisLayer(LData, startYear);
 CreateTempLayer(TData, startYear);
 CreatePrecLayer(PData, startYear);
+diseaseLegend();
 getDisease();
 getYear();
 

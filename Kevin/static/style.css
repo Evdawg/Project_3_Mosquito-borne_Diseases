@@ -45,3 +45,39 @@ body,
 html {
   height: 100%;
 } */
+
+.legend {
+  padding: 0px;
+  font-family: Sanchez, serif;
+  font-size: 16px;
+  /* font-weight: bold; */
+  line-height: 18px;
+  color: #17202A;
+  background-color:  rgb(255, 255, 255); 
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.legend .l10 {
+  color: #7B241C;
+}
+
+.legend .l30 {
+  color: #A93226;
+}
+
+.legend .l50 {
+  color: #D98880;
+}
+
+.legend .l70 {
+  color: #C0392B;
+}
+
+.legend .l90 {
+  color: #EB984E;
+}
+
+.legend .g90 {
+  color: #85929E;
+}
