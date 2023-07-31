@@ -1,10 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-#from python_to_postgres import python_df_to_postgres
 import os
-import config_file
-# import psycopg2
 from time import sleep
 
 # Send any loop iterations with error to an exceptions list:
@@ -80,10 +77,6 @@ county_temperature_df["Avg Temperature (F)"] = county_temperature_df["Avg Temper
 county_temperature_df = county_temperature_df[["County", "State", "State Abbreviation", "Avg Temperature (F)", "Year"]]
 
 #Write dataframe out to a csv file
-county_temperature_df.to_csv("../Data/county_avg_temperature.csv", index=False)
+county_temperature_df.to_csv("../Data/RawData/county_avg_temperature.csv", index=False)
 #-----------------------------------------------------------------------------------------------------------------------
-
-### Send the completed positional DataFrames to SQL database using the defined function python_to_postgres
-### We won't do this now, just write it to a CSV and we'll do the SQL add later -Evan
-#python_df_to_postgres(big_df, 'county_temperatures_df', 'replace')
 

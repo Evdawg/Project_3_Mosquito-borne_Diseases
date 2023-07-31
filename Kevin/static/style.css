@@ -16,15 +16,6 @@
   padding: 20px; /* add some space between the border and the inner contents */
 }
 
- /* .well{
-  margin-left: 88%;
-} */
-
-/* .parent{
-  display: inline-flex;
-
-} */
-
 #map2{
   width: auto;
   height: 270px;
@@ -50,18 +41,10 @@
 #map3{
   width: auto;
   height: 270px;
-  margin-right: -2.3%;
+  margin-right: 0%;
   margin-left: auto;
   margin-top: 5px;
   border: 10px solid #860606; /* add a solid maroon border around the map div */
-
 }
 
-
-
-/* #map,
-body,
-html {
-  height: 100%;
-} */
 
