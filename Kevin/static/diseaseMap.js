@@ -93,9 +93,13 @@ function getYear (data) {
           if(countyTempLayer) {
             myMap2.removeLayer(countyTempLayer);
           }
+          if(countyPrecLayer) {
+            myMap3.removeLayer(countyPrecLayer);
+          }
           console.log(year);
           CreateDisLayer(data, year);
           CreateTempLayer(tempData, year);
+          CreatePrecLayer(precData, year);
       }   
     )
 };
@@ -194,6 +198,57 @@ function TempColor(mag) {
   
   return color;
 };
+
+// creates precipitation layer
+function CreatePrecLayer(Data, year) {
+  let len = Data.length
+  let countyPrecMarkers = [];
+
+    for (var i = 0; i < len; i++) {
+      
+      let county = Data[i];
+      let mag = county[year]
+
+      if (mag > -20) {
+          let param = precColor(mag);
+          circle = new L.circle([county.lat, county.lon], {
+          fillOpacity: .2,
+          color: param,
+          fillColor: param,
+          //weight:3,
+          radius: 30000,
+          stroke: false
+          })
+          countyPrecMarkers.push(circle)
+          //.bindPopup(dlist[i][0])
+      }
+    }
+    countyPrecLayer = L.layerGroup(countyPrecMarkers);
+    countyPrecLayer.addTo(myMap3);
+  };
+
+
+// selects color and graduations for temp layer
+function precColor(mag) {
+  if (mag >= 35) {
+    color = "#641E16";
+  } else if (mag >= 25 && mag < 30) {
+    color = "#7B241C";
+  } else if (mag >= 15 && mag <20) {
+    color = "#C0392B";
+  } else if (mag >= 10 && mag <15) {
+    color = "#D98880";
+  } else if (mag >= 5 && mag <10){
+    color = "#EB984E"; //"#D6EAF8"
+  } else if (mag >= 0 && mag <5){
+    color = "#85C1E9";
+  } else {
+    color = "#3498DB";
+  };
+  
+  return color;
+};
+
    
   
 // Main Body
@@ -202,13 +257,15 @@ let endYear = 2020;
 
 var countyLayer;
 var countyTempLayer;
-var heat;
+var countyPrecLayer;
+// var heat;
 let disData; // = lymeData;
 
 diseaseDropDown();
 YearDropdown();
 CreateDisLayer(wnData, startYear);
 CreateTempLayer(tempData, startYear);
+CreatePrecLayer(precData, startYear);
 getDisease();
 getYear();
 
