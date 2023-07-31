@@ -68,9 +68,9 @@ function getDisease() {
       .on("change", function() {
           let dis = d3.event.target.value;
           if (dis == "Lyme") {
-            disData = lymeData
+            disData = LData
           } else {
-            disData = wnData
+            disData = WData
           };
           //console.log(dis, disData)
           getYear(disData);
@@ -98,14 +98,15 @@ function getYear (data) {
           }
           console.log(year);
           CreateDisLayer(data, year);
-          CreateTempLayer(tempData, year);
-          CreatePrecLayer(precData, year);
+          CreateTempLayer(TData, year);
+          CreatePrecLayer(PData, year);
       }   
     )
 };
 
 // creates disease layer
 function CreateDisLayer(Data, year) {
+  console.log(Data)
   let len = Data.length
   let countyMarkers = [];
 
@@ -117,7 +118,7 @@ function CreateDisLayer(Data, year) {
       if (mag >= 1) {
           let param = Color(mag);
           circle = new L.circle([county.lat, county.lon], {
-          fillOpacity: .5,
+          fillOpacity: .3,
           color: param[0],
           fillColor: param[0],
           //weight:3,
@@ -134,18 +135,21 @@ function CreateDisLayer(Data, year) {
 
 // selects color, graduations, and radii for disease layer
 function Color(mag) {
-  if (mag >= 50) {
-    color = "darkred";
-    radius = 50000;
-  } else if (mag >= 25 && mag < 50) {
-    color = "red";
-    radius = 40000;
-  } else if (mag >= 10 && mag <25) {
-    color = "orange";
-    radius = 30000;
+  if (mag >= 40) {
+      color = "#7B241";
+      radius = 40000;
+  } else if (mag >= 20 && mag < 40) {
+      color = "#D98880";
+      radius = 35000;
+  } else if (mag >= 10 && mag <20) {
+      color = "#C0392B";
+      radius = 30000;
+  } else if (mag >= 10 && mag <20) {
+      color = "#EB984E";
+      radius = 25000;
   } else {
-    color = "gray"
-    radius = 20000;
+      color = "gray"
+      radius = 20000;
   };
   return [color, radius];
 };
@@ -254,6 +258,10 @@ function precColor(mag) {
 // Main Body
 let startYear = 2002;
 let endYear = 2020;
+let LData = lymeData;
+let TData = tempData;
+let PData = precData;
+let WData = wnData;
 
 var countyLayer;
 var countyTempLayer;
@@ -263,9 +271,9 @@ let disData; // = lymeData;
 
 diseaseDropDown();
 YearDropdown();
-CreateDisLayer(wnData, startYear);
-CreateTempLayer(tempData, startYear);
-CreatePrecLayer(precData, startYear);
+CreateDisLayer(LData, startYear);
+CreateTempLayer(TData, startYear);
+CreatePrecLayer(PData, startYear);
 getDisease();
 getYear();
 
