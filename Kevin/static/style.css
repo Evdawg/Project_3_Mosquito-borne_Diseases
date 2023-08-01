@@ -48,9 +48,9 @@ html {
 
 /* legend for disease map */
 .legend {
-  padding: 0px;
+  padding: 5px;
   font-family: Sanchez, serif;
-  font-size: 16px;
+  font-size: 14px;
   /* font-weight: bold; */
   line-height: 18px;
   color: #17202A;
@@ -58,27 +58,89 @@ html {
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-
-.legend .l10 {
+.legend .d1 {
   color: #7B241C;
 }
-
-.legend .l30 {
+.legend .d2 {
   color: #A93226;
 }
-
-.legend .l50 {
+.legend .d3 {
   color: #D98880;
 }
-
-.legend .l70 {
+.legend .d4 {
   color: #C0392B;
 }
-
-.legend .l90 {
+.legend .d5 {
   color: #EB984E;
 }
-
-.legend .g90 {
+.legend .d6 {
   color: #85929E;
+}
+
+/* legend for temp map */
+.legend2 {
+  padding: 5px;
+  font-family: Sanchez, serif;
+  font-size: 12px;
+  /* font-weight: bold; */
+  line-height: 16px;
+  color: #17202A;
+  background-color:  rgb(255, 255, 255); 
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.legend2 .t1 {
+  color: #641E16;
+}
+.legend2 .t2 {
+  color: #7B241C;
+}
+.legend2 .t3 {
+  color: #C0392B;
+}
+.legend2 .t4 {
+  color: #D98880;
+}
+.legend2 .t5 {
+  color: #EB984E;
+}
+.legend2 .t6 {
+  color: #85C1E9;
+}
+.legend2 .t7 {
+  color: #3498DB;
+}
+
+/* legend for prec map */
+.legend3 {
+  padding: 5px;
+  font-family: Sanchez, serif;
+  font-size: 12px;
+  /* font-weight: bold; */
+  line-height: 16px;
+  color: #17202A;
+  background-color:  rgb(255, 255, 255); 
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.legend3 .p1 {
+  color: #641E16;
+}
+.legend3 .p2 {
+  color: #7B241C;
+}
+.legend3 .p3 {
+  color: #A93226;
+}
+.legend3 .p4 {
+  color: #C0392B;
+}
+.legend3 .p5 {
+  color: #D98880;
+}
+.legend3 .p6 {
+  color: #EB984E;
+}
+.legend3 .p7 {
+  color: #85C1E9;
 }

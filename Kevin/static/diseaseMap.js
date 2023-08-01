@@ -3,17 +3,17 @@
 
 let myMap = L.map("map", {
   center: [39.8, -98.5],
-  zoom: 3
+  zoom: 4
 });
 
 let myMap2 = L.map("map2", {
   center: [39.8, -98.5],
-  zoom: 3
+  zoom: 4
 });
 
 let myMap3 = L.map("map3", {
   center: [39.8, -98.5],
-  zoom: 3
+  zoom: 4
 });
 
 
@@ -73,6 +73,20 @@ function getDisease() {
             disData = WData
           };
           //console.log(dis, disData)
+
+          // if(countyLayer) {
+          //   myMap.removeLayer(countyLayer);
+          // }
+          // if(countyTempLayer) {
+          //   myMap2.removeLayer(countyTempLayer);
+          // }
+          // if(countyPrecLayer) {
+          //   myMap3.removeLayer(countyPrecLayer);
+          // }
+          // console.log(year);
+          // CreateDisLayer(disData, year);
+          // CreateTempLayer(TData, year);
+          // CreatePrecLayer(PData, year);
           getYear(disData);
       }
     )    
@@ -259,7 +273,7 @@ function precColor(mag) {
 };
 
 
-  // Create a legend to display information about our map
+  // Create a legend to display information about disease map
 function diseaseLegend() {
   var info = L.control({
   position: "bottomright"
@@ -269,13 +283,13 @@ function diseaseLegend() {
       var div = L.DomUtil.create("div", "legend");
       div.innerHTML=[
           "<h7>Cases:</h7></br>",
-          "<span class='l10'>>=50</span>",
+          "<span class='d1'>>=50</span>",
           "</br>",
-          "<span class='l30'>40-49</span></br>",
-          "<span class='l50'>30-39</span></br>",
-          "<span class='l70'>20-29</span></br>",
-          "<span class='l90'>10-19</span></br>",
-          "<span class='g90'>0-9</span>"
+          "<span class='d2'>40-49</span></br>",
+          "<span class='d3'>30-39</span></br>",
+          "<span class='d4'>20-29</span></br>",
+          "<span class='d5'>10-19</span></br>",
+          "<span class='d6'>0-9</span>"
       ].join("");
 
     return div;
@@ -284,9 +298,62 @@ function diseaseLegend() {
 info.addTo(myMap);
 };
 
-   
+ // Create a legend to display information about temp map
+ function tempLegend() {
+  var info = L.control({
+  position: "bottomright"
+});
+// When the layer control is added, insert a div with the class of "legend"
+  info.onAdd = function() {
+      var div = L.DomUtil.create("div", "legend2");
+      div.innerHTML=[
+          "<h8>Temp(F):</h8></br>",
+          "<span class='t1'>>82</span>",
+          "</br>",
+          "<span class='t2'>79-82</span></br>",
+          "<span class='t3'>76-79</span></br>",
+          "<span class='t4'>73-76</span></br>",
+          "<span class='t5'>70-73</span></br>",
+          "<span class='t6'>67-70</span></br>",
+          "<span class='t7'><67</span>"
+      ].join("");
+
+    return div;
+};
+// Add the info legend to the map
+info.addTo(myMap2);
+};
+
+// Create a legend to display information about prec map
+function precLegend() {
+  var info = L.control({
+  position: "bottomright"
+});
+// When the layer control is added, insert a div with the class of "legend"
+  info.onAdd = function() {
+      var div = L.DomUtil.create("div", "legend3");
+      div.innerHTML=[
+          "<h8>Prec(in):</h8></br>",
+          "<span class='p1'>>30</span>",
+          "</br>",
+          "<span class='p2'>25-30</span></br>",
+          "<span class='p3'>20-25</span></br>",
+          "<span class='p4'>15-20</span></br>",
+          "<span class='p5'>10-15</span></br>",
+          "<span class='p6'>5-10</span></br>",
+          "<span class='p7'>0-5</span>"
+      ].join("");
+
+    return div;
+};
+// Add the info legend to the map
+info.addTo(myMap3);
+};
+
+
   
 // Main Body
+let year = "2002";
 let startYear = 2002;
 let endYear = 2020;
 let LData = lymeData;
@@ -299,16 +366,34 @@ var countyTempLayer;
 var countyPrecLayer;
 // var heat;
 let disData; // = lymeData;
+let dis = "Lyme"
 
 diseaseDropDown();
 YearDropdown();
+tempLegend();
+diseaseLegend();
+precLegend();
 CreateDisLayer(LData, startYear);
 CreateTempLayer(TData, startYear);
 CreatePrecLayer(PData, startYear);
-diseaseLegend();
-getDisease();
-getYear();
 
+getDisease();
+getYear(LData);
+
+var info = L.control({
+  position: "topright"
+});
+// When the layer control is added, insert a div with the class of "legend"
+  info.onAdd = function() {
+      var div = L.DomUtil.create("div", "title");
+      div.innerHTML=[
+          "<h6>Disease Hot-spots and Their Relation to Climate Change</h6>",
+      ].join("");
+
+    return div;
+};
+// Add the info legend to the map
+info.addTo(myMap2);
 
 
 
