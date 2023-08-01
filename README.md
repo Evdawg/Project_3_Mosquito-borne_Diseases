@@ -51,7 +51,6 @@ The data used in this project was generated from the sources listed below and is
 
 	Pareto bar chart, ...
 
-
 # Setup Instructions:
 
 ## Cleaning and Loading the Data:
@@ -84,7 +83,15 @@ The data used in this project was generated from the sources listed below and is
 2) Rename the modified "example_config.ini" to "config.ini".
 3) Run app.py and confirm API data outputs are correct in browser window.
 ```
-
+### Multi-line Chart Visualizations instructions:
+```
+Multi-line chart visualizations were made using the code from Chart.js. 
+1) Chart.js needs to be downloaded, if not already, by following information found here: 
+    https://www.chartjs.org/docs/latest/
+2) To run this code smoothly, "dropping_column_1.ipynb" needs to have been ran (this should have been done if following the above instuctions). 
+    This will load all of the CSV files that are crucial to the visualizations function. 
+#) Open all_vis.html with live server and you shound see the visualizations open in a webpage.
+```
 
 ## Collaborators:
 Ryan C.
