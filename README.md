@@ -14,7 +14,7 @@ The data used in this project was generated from the sources listed below and is
 ## Tools and Methods Used:
 
 - JavaScript:
-	libraries: D3, Leaflet (heatmap, CSS) ...
+	libraries: D3, Leaflet (heatmap, CSS), Chart.js
 
 - Python:
 	modules: Flask, SQLAlchemy, pandas, splinter, BeautifulSoup, JSON, configparser, numpy
