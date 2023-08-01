@@ -93,6 +93,11 @@ Multi-line chart visualizations were made using the code from Chart.js.
 #) Open all_vis.html with live server and you shound see the visualizations open in a webpage.
 ```
 
+### To run the main visualization:
+	Run the index.html file located in: Kevin\index.html
+
+
+
 ## Collaborators:
 Ryan C.
 

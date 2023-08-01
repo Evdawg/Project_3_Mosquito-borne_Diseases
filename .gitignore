@@ -355,3 +355,6 @@ fabric.properties
 
 # config file:
 config.ini
+
+# hidden files
+.DS_Store
