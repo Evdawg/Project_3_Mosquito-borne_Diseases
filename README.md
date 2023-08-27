@@ -1,7 +1,7 @@
 # Mapping Vector-borne Illnesses
 Project 3: Mapping West Nile Virus and Lyme Disease illnesses Against Regional Temperature and Precipitiation
 
-Graded __/100
+Graded 89/100
 
 
 ## Project Description:
